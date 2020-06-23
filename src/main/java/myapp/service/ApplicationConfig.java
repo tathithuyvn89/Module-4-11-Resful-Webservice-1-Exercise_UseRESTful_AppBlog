@@ -1,4 +1,5 @@
 package myapp.service;
+import myapp.filter.DataFilter;
 import myapp.repository.BlogRepository;
 import myapp.repository.BlogRepositoryImpl;
 import org.springframework.beans.BeansException;
@@ -120,4 +121,8 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         return new BlogServiceImpl();
     }
 
+    @Bean
+    public DataFilter dataFilter(){
+        return new DataFilter();
+    }
 }
