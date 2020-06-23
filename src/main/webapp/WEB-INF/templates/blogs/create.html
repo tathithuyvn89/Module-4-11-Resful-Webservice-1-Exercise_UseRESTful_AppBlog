@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Blog</title>
+</head>
+<body>
+
+
+<h1>Create Blog</h1>
+<p>
+    <a href="/customers">Customer list</a>
+</p>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/create-blog}" th:object="${blog}" method="post">
+    <table>
+        <tr>
+            <td>Tác giả</td>
+            <td><input type="text" th:field="*{author}"/></td>
+        </tr>
+        <tr>
+            <td>Nội dung</td>
+            <td><input type="text" th:field="*{content}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create Blog"></td>
+        </tr>
+    </table>
+</form>
+<table>
+    <tr>
+        <td>Author</td>
+        <td>context</td>
+        <td>PostDate</td>
+        <td>Action</td>
+    </tr>
+    <th:block th:each="blog: ${blogs}">
+        <tr>
+            <td th:text="${blog.getAuthor()}"></td>
+            <td th:text="${blog.getContent()}"></td>
+            <td th:text="${blog.getDate()}"></td>
+            <td>
+<!--                @{/img-of-the-day/__${img.id}__/like}"-->
+                <a th:href="@{/create-blog/__${blog.getId()}__/delete}">Delete</a>
+                <a th:href="@{/create-blog/__${blog.getId()}__/edit}">Edit</a>
+                <a th:href="@{/create-blog/{id}/view(id=${blog.getId()})}">View</a>
+            </td>
+        </tr>
+    </th:block>
+
+</table>
+</body>
+</html>
